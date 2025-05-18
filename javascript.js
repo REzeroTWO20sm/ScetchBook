@@ -83,7 +83,45 @@ function createPixel(i,j) {
 	});
 	pixel.addEventListener("mousedown", () => {mousehold = true});
 	pixel.addEventListener("mouseup", () => {mousehold = false});
+
+	pixel.addEventListener("touchstart", handleTouchStart);
+	pixel.addEventListener("touchmove", handleTouchMove);
+	pixel.addEventListener("touchend", handleTouchEnd);
+
 	return pixel;
+}
+
+let isTouching = false;
+
+function handleTouchStart(e) {
+    e.preventDefault();
+    isTouching = true;
+    const pixel = e.target;
+    if (selectedTool === "brush") {
+        pixel.style.backgroundColor = mainColor;
+    } else if (selectedTool === "remover") {
+        pixel.style.backgroundColor = background_color;
+    }
+}
+
+function handleTouchMove(e) {
+    e.preventDefault();
+    if (!isTouching) return;
+    
+    const touch = e.touches[0];
+    const pixel = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    if (pixel && pixel.classList.contains("pixel")) {
+        if (selectedTool === "brush") {
+            pixel.style.backgroundColor = mainColor;
+        } else if (selectedTool === "remover") {
+            pixel.style.backgroundColor = background_color;
+        }
+    }
+}
+
+function handleTouchEnd() {
+    isTouching = false;
 }
 
 function brushEventsPixel(pixel) {
@@ -91,11 +129,22 @@ function brushEventsPixel(pixel) {
 		if (mousehold === true && selectedTool === "brush") {
 			pixel.style.backgroundColor = mainColor;
 		}
+	});	
+	pixel.addEventListener("touchstart", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "brush") {
+        	    pixel.style.backgroundColor = mainColor;
+	        }
 	});
-	pixel.addEventListener("touchmove", () => {
-		if (mousehold === true && selectedTool === "brush") {
-			pixel.style.backgroundColor = mainColor;
-		}
+	pixel.addEventListener("touchmove", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "brush") {
+        	    const touch = e.touches[0];
+	            const movedPixel = document.elementFromPoint(touch.clientX, touch.clientY);
+        	    if (movedPixel && movedPixel.classList.contains("pixel")) {
+	                movedPixel.style.backgroundColor = mainColor;
+		    }
+	        }
 	});
 	pixel.addEventListener("mousedown", () => {
 		if (selectedTool === "brush"){
@@ -114,6 +163,22 @@ function removerEventsPixel (pixel) {
 		if (selectedTool === "remover") {
 			pixel.style.backgroundColor = background_color;
 		}
+	});
+	pixel.addEventListener("touchstart", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "remover") {
+        	    pixel.style.backgroundColor = background_color;
+	        }
+	});    
+	pixel.addEventListener("touchmove", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "remover") {
+        	    const touch = e.touches[0];
+	            const movedPixel = document.elementFromPoint(touch.clientX, touch.clientY);
+			if (movedPixel && movedPixel.classList.contains("pixel")) {
+				movedPixel.style.backgroundColor = background_color;	
+			}
+	        }
 	});
 }
 

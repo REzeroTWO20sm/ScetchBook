@@ -231,3 +231,6 @@ header {
 	border: 1px solid white;
 }
 
+.pixel {
+    touch-action: none;
+}
