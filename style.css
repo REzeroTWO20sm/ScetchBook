@@ -1,4 +1,167 @@
 body {
+	margin: 0;
+	background-color: dimgray;
+	color: black;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+header {
+	display: flex;
+	max-height: 64px;
+	justify-content: center;
+	padding: 8px;
+}
+
+.settings {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid white;
+	width: 10%;
+	max-height: 32px;
+	text-align: center;
+	margin-left: auto;
+	background-color: lightgray;
+}
+
+.settings:hover {
+	background-color: darkgray;
+}
+
+.settings:active {
 	background-color: black;
 	color: white;
 }
+
+.settingsWidjet {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+}
+
+#height {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	padding: 8px;
+	border: 1px solid white;
+}
+
+#width {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	padding: 8px;
+	border: 1px solid white;
+}
+
+#choseDisplayResButton {
+	background-color: lightgray;
+	border: 1px solid white;
+	padding: 9px;
+}
+
+.workspace {
+	max-width: 1000px;
+	width: 80%;
+	background-color: darkgray;
+	display: flex;
+}
+
+.display {
+	max-width: 800px;
+	margin: 8px;
+	margin-right: 0px;
+	background-color: black;
+	flex: 8;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.tools {
+	display: flex;
+	flex: 1 0 auto;
+	flex-flow: column nowrap;
+}
+
+.tools div {
+	margin: 8px;
+	border: 1px solid black;
+	background-color: lightgray;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.functions {
+	max-width: 1000px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 8px;
+	gap: 8px;
+	width: 80%;
+	max-height: 55px;
+}
+
+.functions div {
+	padding: 8px;
+	flex: 1;
+	border: 1px solid black;
+	background-color: lightgray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tools div:hover {
+	background-color: darkgray;
+}
+
+.functions div:hover {
+	background-color: darkgray;
+}
+
+.tools div:active {
+	background-color: black;
+	color: white;
+}
+
+.functions div:active {
+	background-color: black;
+	color: white;
+}
+
+.paleteWidjet {
+	margin-left: 8px;
+	margin-top: 64px;
+	display: none;
+	align-items: center;
+	flex-flow: column nowrap;
+	gap: 8px;
+}
+
+.paletButonAndDisplay {
+	display: flex;
+	gap: 8px;
+}
+
+.chousenColor {
+	padding: 8px;
+	border: 1px solid white;
+	color: white;
+}
+
+.choseButton {
+	background-color: darkgray;
+	padding: 8px;
+	border: 1px solid white;
+}
+

@@ -7,6 +7,45 @@
 		<script src="./javascript.js" defer></script>
 	</head>
 	<body>
-		<h1>Hello,world!</h1>
+		<div class="settings">Settings</div>
+		<div class="settingsWidjet">
+			<div id="height">height<input type="range" value="64" min="1" max="128" id="displayHeight"><div class="displayHeightValue">64</div></div>
+			<div id="width">width<input type="range" value="64" min="1" max="128" id="displayWidth"><div class="displayWidthValue">64</div></div>
+			<div id="choseDisplayResButton">chose</div>
+		</div>
+		<header>
+			<h1>ScetchBook</h1>
+		</header>
+		<div class="workspace">
+			<div class="paleteWidjet">
+				<div class="paletButonAndDisplay"><div class="chousenColor">ChousenColor</div><div class="choseButton">chose</div></div>
+				<input type="range" min="0" max="255" value="0" class="sliders" id="red">
+				<input type="range" min="0" max="255" value="0" class="sliders" id="green">
+				<input type="range" min="0" max="255" value="0" class="sliders" id="blue">
+			</div>
+			<div class="display"></div>
+			<div class="tools">
+				<div id="brush">brush</div>
+				<div id="remover">remover</div>
+				<div id="bucket">bucket</div>
+				<div id="pipette">pipette</div>
+				<div id="undo">undo</div>
+				<div id="redo">redo</div>
+			</div>	
+		</div>
+		<div class="functions">
+			<div id="load">
+				load
+			</div>
+			<div id="save">
+				save
+			</div>
+			<div id="palette">
+				palet
+			</div>
+			<div id="clear">
+				clear
+			</div>
+		</div>	
 	</body>
 </html>
