@@ -19,9 +19,11 @@ const palet = document.querySelector("#palette");
 const redSlider = document.querySelector("#red");
 const greenSlider = document.querySelector("#green");
 const blueSlider = document.querySelector("#blue");
+const opacitySlider = document.querySelector("#opacity");
 const choseButton = document.querySelector(".choseButton");
 const chousenColor = document.querySelector(".chousenColor");
 const paleteWidjet = document.querySelector(".paleteWidjet");
+const saveButton = document.querySelector("#save");
 display.addEventListener("mouseup", () => {mousehold = false});
 display.addEventListener("mouseleave", () => {mousehold = false});
 
@@ -29,11 +31,12 @@ let selectedTool = "brush";
 
 let displayRes = [64,64];
 let currentDisplay = [];
+let displayPixelsIds = [];
 let currentDisplayColor = [];
 let eventSequencePos =	-1;
 let eventSequence = [];
-let background_color = "white";
-let mainColor = "black";
+let background_color = "rgba(255, 255, 255, 0)";
+let mainColor = "rgba(0, 0, 0, 1)";
 let mousehold = false;
 let clearEvent = new Event('clearPixel');
 
@@ -72,7 +75,9 @@ function painDisplay(eventSequencePos) {
 function createPixel(i,j) {
 	const pixel = document.createElement("div");
 	pixel.setAttribute("id",`${i+1};${j+1}`);
+	pixel.className = "pixel";
 	pixel.setAttribute("style",`background-color: ${background_color}; flex: 1 0 auto; aspect-ratio: 1/1; user-select: none; -webkit-user-drag: none;`);
+	console.log(background_color);
 	pixel.addEventListener("dragstart", (e) => {
 		e.preventDefault()
 	});
@@ -172,13 +177,13 @@ function displayConstructor(displayRes) {
 	currentDisplayColor = [];
 	eventSequencePos = -1;
 	eventSequence = [];
-	background_color = "white";
-	mainColor = "black";
+	background_color = "rgba(255, 255, 255, 0)";
+	mainColor = "rgba(0, 0, 0, 1)";
 	mousehold = false;
 
 	for (let i = 0; i < displayRes[0]; i++){
 		for (let j = 0; j < displayRes[1]; j++){
-			currentDisplayColor.push([i,j,"white"]);
+			currentDisplayColor.push([i,j,background_color]);
 		}
 	} eventSequence.push(currentDisplayColor); eventSequencePos += 1;
 	currentDisplayColor = [];
@@ -275,7 +280,7 @@ undo.addEventListener('click', () => {
 });
 
 redo.addEventListener('click', () => {
-	if (eventSequencePos < eventSequence.length -1) {
+	if (eventSequencePos < eventSequence.length-1) {
 		eventSequencePos += 1;
 		painDisplay(eventSequencePos);
 	}
@@ -284,17 +289,19 @@ redo.addEventListener('click', () => {
 let paleteWidjetOpen = false;
 palet.addEventListener('click', () => {
 	if (paleteWidjetOpen){
+		console.log("paleteWidjetFalse")
 		paleteWidjet.style.display = "none";
 		paleteWidjetOpen = false;
-	} else {
+	} else {	
+		chousenColor.dispatchEvent(sliderValueChanged);
 		paleteWidjet.style.display = "flex";
 		paleteWidjetOpen = true;
-		chousenColor.dispatchEvent(sliderValueChanged);
 	}	
 });
 
 choseButton.addEventListener('click', () => {
 	paleteWidjet.style.display = "none";
+	paleteWidjetOpen = false;
 	chousenColor.dispatchEvent(sliderValueChanged);
 });
 
@@ -313,13 +320,66 @@ blueSlider.addEventListener('mousemove', (e) => {
 	chousenColor.dispatchEvent(sliderValueChanged);
 });
 
+opacitySlider.addEventListener('mousemove', (e) => {
+	console.log(opacitySlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
 let sliderValueChanged = new Event("sliderValueChanged");
 chousenColor.addEventListener('sliderValueChanged', () => {
-	chousenColor.setAttribute('style',`background-color: rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value});`);
+	chousenColor.setAttribute('style',`background-color: rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value}, ${(opacitySlider.value)/100});`);
 });
 
 choseButton.addEventListener('click', () => {
-	mainColor = `rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value})`;
+	mainColor = `rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value}, ${(opacitySlider.value)/100})`;
+});
+
+function saveToPNG() {
+	const canvas = document.createElement("canvas");
+	canvas.width = displayRes[1];
+	canvas.height = displayRes[0];
+	const ctx = canvas.getContext("2d");
+	const imageData = ctx.createImageData(displayRes[1], displayRes[0]);
+
+	displayPixelsIds = display.querySelectorAll(".pixel");
+	console.log(displayPixelsIds)
+	for (let i = 0; i < displayPixelsIds.length; i++){
+		const pixel = document.getElementById(displayPixelsIds[i].id);
+		console.log(pixel);
+		const rgba = parseColorString(pixel);
+
+		const offset = i * 4;
+		imageData.data[offset] = rgba.r;
+		imageData.data[offset + 1] = rgba.g;
+		imageData.data[offset + 2] = rgba.b;
+		imageData.data[offset + 3] = rgba.a;
+	}
+
+	ctx.putImageData(imageData, 0, 0);
+	const pngUrl = canvas.toDataURL("image/png");
+	const link = document.createElement("a");
+	link.href = pngUrl;
+	link.download = "pixel-art.png";
+	link.click();	
+}
+
+function parseColorString(pixel) {
+	const computedColor = getComputedStyle(pixel).backgroundColor;
+	console.log(computedColor);
+	const rgbaMatch = computedColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+	if (rgbaMatch) {
+		return {
+			r: parseInt(rgbaMatch[1]),
+			g: parseInt(rgbaMatch[2]),
+			b: parseInt(rgbaMatch[3]),
+			a: rgbaMatch[4] ? Math.round(parseFloat(rgbaMatch[4])*255) : 255
+		};
+	}
+	return {r: 0, g: 0, b: 0, a: 0};
+}
+
+saveButton.addEventListener('click', () => {
+	saveToPNG();
 });
 
 displayConstructor(displayRes);

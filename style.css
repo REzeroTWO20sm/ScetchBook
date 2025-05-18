@@ -1,4 +1,5 @@
 body {
+	font-family: "DotGothic16", sans-serif;
 	margin: 0;
 	background-color: dimgray;
 	color: black;
@@ -68,7 +69,7 @@ header {
 }
 
 .workspace {
-	max-width: 1000px;
+	max-width: 800px;
 	width: 80%;
 	background-color: darkgray;
 	display: flex;
@@ -78,8 +79,8 @@ header {
 	max-width: 800px;
 	margin: 8px;
 	margin-right: 0px;
-	background-color: black;
-	flex: 8;
+	background-image: url(./images/displayBackgroud.jpg);
+	flex: 17;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -88,37 +89,101 @@ header {
 .tools {
 	display: flex;
 	flex: 1 0 auto;
+	justify-content: center;
+	align-items: center;
 	flex-flow: column nowrap;
 }
 
 .tools div {
+	max-height: 10%;
 	margin: 8px;
 	border: 1px solid black;
 	background-color: lightgray;
 	display: flex;
 	flex: 1;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
+	aspect-ratio: 1/1;
+}
+
+#brush {
+	background-image: url(./images/brush.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#remover {
+	background-image: url(./images/remover.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#bucket {
+	background-image: url(./images/backet.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#pipette {
+	background-image: url(./images/pipette.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#undo {
+	background-image: url(./images/undo.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#redo {
+	background-image: url(./images/redo.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }
 
 .functions {
 	max-width: 1000px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	margin-top: 8px;
 	gap: 8px;
 	width: 80%;
-	max-height: 55px;
 }
 
 .functions div {
-	padding: 8px;
-	flex: 1;
+	max-width: 8%;
+	margin: 8px;
 	border: 1px solid black;
 	background-color: lightgray;
 	display: flex;
+	flex: 1;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
+	aspect-ratio: 1/1;
+}
+
+#save {
+	background-image: url(./images/save.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#palette {
+	background-image: url(./images/palet.png);
+	background-repeat: no-repeat;
+	background-size: 90% 90%;
+	background-position: center;
+}
+
+#clear {
+	background-image: url(./images/clear.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#load {
+	display: none;
 }
 
 .tools div:hover {
