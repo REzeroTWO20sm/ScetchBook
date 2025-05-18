@@ -92,6 +92,11 @@ function brushEventsPixel(pixel) {
 			pixel.style.backgroundColor = mainColor;
 		}
 	});
+	pixel.addEventListener("touchmove", () => {
+		if (mousehold === true && selectedTool === "brush") {
+			pixel.style.backgroundColor = mainColor;
+		}
+	});
 	pixel.addEventListener("mousedown", () => {
 		if (selectedTool === "brush"){
 			pixel.style.backgroundColor = mainColor;
