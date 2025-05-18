@@ -225,12 +225,17 @@ function displayConstructor(displayRes) {
 }
 
 let settingsWidjetOpen = false;
+let settingsButtonShown = true;
 settings.addEventListener('click', () => {
 	if (settingsWidjetOpen){
 		settingsWidjet.style.display = "none";
+		settings.style.display = "flex";
+		settingsButtonShown = true;
 		settingsWidjetOpen = false;
 	} else {
 		settingsWidjet.style.display = "flex";
+		settings.style.display = "none";
+		settingsButtonShown = false;
 		settingsWidjetOpen = true;
 	}
 });
@@ -249,6 +254,9 @@ choseDisplayResButton.addEventListener('click', () => {
 	displayRes[0] = displayHeight.value;
 	displayRes[1] = displayWidth.value;
 	settingsWidjet.style.display = "none";
+	settings.style.display = "flex";
+	settingsButtonShown = true;
+	settingsWidjetOpen = false;
 	displayConstructor(displayRes);
 });
 
