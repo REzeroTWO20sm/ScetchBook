@@ -24,7 +24,6 @@ const choseButton = document.querySelector(".choseButton");
 const chousenColor = document.querySelector(".chousenColor");
 const paleteWidjet = document.querySelector(".paleteWidjet");
 const saveButton = document.querySelector("#save");
-const tochPad = document.querySelector("footer");
 const mobileMode = document.querySelector("#MobileMode");
 display.addEventListener("mouseup", () => {mousehold = false});
 display.addEventListener("mouseleave", () => {mousehold = false});
@@ -96,30 +95,30 @@ function createPixel(i,j) {
 let isTouching = false;
 
 function handleTouchStart(e) {
-    e.preventDefault();
-    isTouching = true;
-    const pixel = e.target;
-    if (selectedTool === "brush") {
-        pixel.style.backgroundColor = mainColor;
-    } else if (selectedTool === "remover") {
-        pixel.style.backgroundColor = background_color;
-    }
+    	e.preventDefault();
+    	isTouching = true;
+    	const pixel = e.target;
+    	if (selectedTool === "brush") {
+        	pixel.style.backgroundColor = mainColor;
+    	} else if (selectedTool === "remover") {
+        	pixel.style.backgroundColor = background_color;
+    	}
 }
 
 function handleTouchMove(e) {
-    e.preventDefault();
-    if (!isTouching) return;
+    	e.preventDefault();
+    	if (!isTouching) return;
     
-    const touch = e.touches[0];
-    const pixel = document.elementFromPoint(touch.clientX, touch.clientY);
+    	const touch = e.touches[0];
+    	const pixel = document.elementFromPoint(touch.clientX, touch.clientY);
     
-    if (pixel && pixel.classList.contains("pixel")) {
-        if (selectedTool === "brush") {
-            pixel.style.backgroundColor = mainColor;
-        } else if (selectedTool === "remover") {
-            pixel.style.backgroundColor = background_color;
-        }
-    }
+    	if (pixel && pixel.classList.contains("pixel")) {
+        	if (selectedTool === "brush") {
+            		pixel.style.backgroundColor = mainColor;
+        	} else if (selectedTool === "remover") {
+            		pixel.style.backgroundColor = background_color;
+        	}
+    	}
 }
 
 function handleTouchEnd() {
@@ -298,6 +297,7 @@ function displayConstructor(displayRes) {
 		const row = document.createElement('div');
 		row.setAttribute("style","display: flex;")
 		row.setAttribute("dragable", false);
+		row.className = "row";
 		row.addEventListener("mouseup", () => {mousehold = false});
 		currentDisplay.push(currentRow);
 		display.append(row);
@@ -346,12 +346,12 @@ settings.addEventListener('click', () => {
 	}
 });
 
-displayHeight.addEventListener('mousemove', (e) => {
+displayHeight.addEventListener('change', (e) => {
 	console.log(displayHeight.value);
 	displayHeightValue.textContent = displayHeight.value;
 });
 
-displayWidth.addEventListener('mousemove', (e) => {
+displayWidth.addEventListener('change', (e) => {
 	console.log(displayWidth.value);
 	displayWidthValue.textContent = displayWidth.value;
 });
@@ -367,7 +367,9 @@ choseDisplayResButton.addEventListener('click', () => {
 });
 
 function handleClear() {
+	console.log("hello");
 	display.dispatchEvent(clearEvent);
+	console.log("hello");
 }
 
 function handlebrush() {
@@ -448,7 +450,7 @@ mobileMode.addEventListener("change", (e) => {
   	redo.removeEventListener('touchstart', handleRedoTouch);
 
 	clear.removeEventListener('click', handleClear);
-	clear.removeEventListener('touxhstart', handleClear);
+	clear.removeEventListener('touchstart', handleClear);
 
 	palet.removeEventListener('click', handlePalet);
 	saveButton.removeEventListener('click', handleSaveButton);
@@ -457,8 +459,6 @@ mobileMode.addEventListener("change", (e) => {
 	saveButton.removeEventListener('touchstart', handleSaveButton);
   
  	if (mobileMode.checked) {
-		tochPad.style.display = "block";
-
 		undo.addEventListener('touchstart', handleUndoTouch);
 		redo.addEventListener('touchstart', handleRedoTouch);
 
@@ -467,13 +467,11 @@ mobileMode.addEventListener("change", (e) => {
 		pipette.addEventListener('touchstart', handlepipette);
 		remover.addEventListener('touchstart', handleremover);
 
-		clear.addEventListener('touxhstart', handleClear)
+		clear.addEventListener('touchstart', handleClear)
 		palet.addEventListener('touchstart', handlePalet);
 		saveButton.addEventListener('touchstart', handleSaveButton);;
 
 	} else {
-		tochPad.style.display = "none";
-
 		undo.addEventListener('click', handleUndoClick);
 		redo.addEventListener('click', handleRedoClick);
 

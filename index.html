@@ -2,17 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="user-scalable=yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=yes">
 		<title>Page</title>
 		<link rel="stylesheet" href="./style.css">
 		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 		<script src="./javascript.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/iscroll/4.2.5/iscroll.min.js" defer></script>
 	</head>
 	<body>
 		<div class="settings">Settings</div>
 		<div class="settingsWidjet">
-			<div id="height">height<input type="range" value="64" min="1" max="128" id="displayHeight"><div class="displayHeightValue">64</div></div>
-			<div id="width">width<input type="range" value="64" min="1" max="128" id="displayWidth"><div class="displayWidthValue">64</div></div>
+			<div id="height">height<input type="number" value="64" min="1" max="128" id="displayHeight"><div class="displayHeightValue">64</div></div>
+			<div id="width">width<input type="number" value="64" min="1" max="128" id="displayWidth"><div class="displayWidthValue">64</div></div>
 			
 			MobileMode<input id="MobileMode" type="checkbox" chacked="false">
 			<div id="choseDisplayResButton">chose</div>		</div>

@@ -6,6 +6,7 @@ body {
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
+	justify-content: center;
 	box-sizing: border-box;
 }
 
@@ -26,6 +27,7 @@ header {
 	text-align: center;
 	margin-left: auto;
 	background-color: lightgray;
+	flex: 1;
 }
 
 .settings:hover {
@@ -39,6 +41,7 @@ header {
 
 .settingsWidjet {
 	display: none;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	gap: 16px;
@@ -69,7 +72,6 @@ header {
 }
 
 .workspace {
-	max-width: 800px;
 	width: 80%;
 	background-color: darkgray;
 	display: flex;
@@ -77,8 +79,6 @@ header {
 }
 
 .display {
-	max-width: 800px;
-	margin: 8px;
 	margin-right: 0px;
 	background-image: url(./images/displayBackgroud.jpg);
 	flex: 17;
@@ -96,12 +96,13 @@ header {
 }
 
 .tools div {
-	min-height: 10%;
 	margin: 8px;
 	border: 1px solid black;
 	background-color: lightgray;
 	display: flex;
-	flex: 1;
+	flex: 1 0 auto;
+	max-width: 95px;
+	max-height: 95px;
 	justify-content: center;
 	align-items: flex-end;
 	aspect-ratio: 1/1;
@@ -233,30 +234,42 @@ header {
 
 .pixel {
     touch-action: none;
+    max-height: 0.65em;
+    max-width: 0.65em;
 }
 
-footer {
-	display: none;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	margin: 0 auto;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;  
-	width: 70%;
-	background: rgba(210, 210, 210, 0.4);
-	backdrop-filter: blur(2px);
-  	z-index: 1000;
-  	pointer-events: none;
-
-  	height: 35%;
-  	z-index: 9999;
-	touch-action: manipulation;
-	pointer-events: auto;
+.row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-/*footer.touchpad {
-  	pointer-events: auto;
-  	touch-action: manipulation;
-}*/
+@media (max-width: 950px) {
+    	body {
+        	font-size: 10px;
+    	}
+
+    	.workspace {
+        	width: 95%;
+        	max-width: none;
+    	}
+    	.tools {
+        	gap: 8px;
+		display: flex;
+    	}
+    	.tools div {
+		flex: 1;
+		width: 100%;
+        	aspect-ratio: 1/1;
+		max-height: 45px;
+		max-width: 45px;
+    	}
+    	.functions {
+        	max-height: 10;
+        	flex-wrap: wrap;
+    	}
+    	.functions div {
+        	max-width: 100px;
+        	aspect-ratio: 1/1;
+    	}
+}
