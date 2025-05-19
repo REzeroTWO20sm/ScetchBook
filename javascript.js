@@ -24,6 +24,7 @@ const choseButton = document.querySelector(".choseButton");
 const chousenColor = document.querySelector(".chousenColor");
 const paleteWidjet = document.querySelector(".paleteWidjet");
 const saveButton = document.querySelector("#save");
+const tochPad = document.querySelector("footer");
 const mobileMode = document.querySelector("#MobileMode");
 display.addEventListener("mouseup", () => {mousehold = false});
 display.addEventListener("mouseleave", () => {mousehold = false});
@@ -365,26 +366,26 @@ choseDisplayResButton.addEventListener('click', () => {
 	displayConstructor(displayRes);
 });
 
-clear.addEventListener('click', () => {
-	display.dispatchEvent(clearEvent);	
-});
+function handleClear() {
+	display.dispatchEvent(clearEvent);
+}
 
-brush.addEventListener('click', () => {
+function handlebrush() {
 	selectedTool = "brush";
-});
+}
 
-bucket.addEventListener('click', () => {
-	console.log("bucket");
+function handlebucket() {
 	selectedTool = "bucket";
-});
+	console.log(selectedTool);
+}
 
-pipette.addEventListener('click', () => {
+function handlepipette() {
 	selectedTool = "pipette";
-});
+}
 
-remover.addEventListener('click', () => {
+function handleremover() {
 	selectedTool = "remover";
-});
+}
 
 function handleUndoClick() {
   if(eventSequencePos > 0) {
@@ -417,27 +418,79 @@ function handleRedoTouch(e) {
   }
 }
 
+brush.addEventListener('click', handlebrush);
+bucket.addEventListener('click', handlebucket);
+pipette.addEventListener('click', handlepipette);
+remover.addEventListener('click', handleremover);
+
 undo.addEventListener('click', handleUndoClick);
 redo.addEventListener('click', handleRedoClick);
 
+clear.addEventListener('click', handleClear);
+palet.addEventListener('click', handlePalet);
+saveButton.addEventListener('click', handleSaveButton);
+
 mobileMode.addEventListener("change", (e) => {
-  undo.removeEventListener('click', handleUndoClick);
-  undo.removeEventListener('touchstart', handleUndoTouch);
+	brush.removeEventListener('touchstart', handlebrush);
+	bucket.removeEventListener('touchstart', handlebucket);
+	pipette.removeEventListener('touchstart', handlepipette);
+	remover.removeEventListener('touchstart', handleremover);
+
+	brush.removeEventListener('click', handlebrush);
+	bucket.removeEventListener('click', handlebucket);
+	pipette.removeEventListener('click', handlepipette);
+	remover.removeEventListener('click', handleremover);
+
+  	undo.removeEventListener('click', handleUndoClick);
+  	undo.removeEventListener('touchstart', handleUndoTouch);
   
-  redo.removeEventListener('click', handleRedoClick);
-  redo.removeEventListener('touchstart', handleRedoTouch);
+  	redo.removeEventListener('click', handleRedoClick);
+  	redo.removeEventListener('touchstart', handleRedoTouch);
+
+	clear.removeEventListener('click', handleClear);
+	clear.removeEventListener('touxhstart', handleClear);
+
+	palet.removeEventListener('click', handlePalet);
+	saveButton.removeEventListener('click', handleSaveButton);
+
+	palet.removeEventListener('touchstart', handlePalet);
+	saveButton.removeEventListener('touchstart', handleSaveButton);
   
-  if (mobileMode.checked) {
-    undo.addEventListener('touchstart', handleUndoTouch);
-    redo.addEventListener('touchstart', handleRedoTouch);
-  } else {
-    undo.addEventListener('click', handleUndoClick);
-    redo.addEventListener('click', handleRedoClick);
-  }
+ 	if (mobileMode.checked) {
+		tochPad.style.display = "block";
+
+		undo.addEventListener('touchstart', handleUndoTouch);
+		redo.addEventListener('touchstart', handleRedoTouch);
+
+		brush.addEventListener('touchstart', handlebrush);
+		bucket.addEventListener('touchstart', handlebucket);
+		pipette.addEventListener('touchstart', handlepipette);
+		remover.addEventListener('touchstart', handleremover);
+
+		clear.addEventListener('touxhstart', handleClear)
+		palet.addEventListener('touchstart', handlePalet);
+		saveButton.addEventListener('touchstart', handleSaveButton);;
+
+	} else {
+		tochPad.style.display = "none";
+
+		undo.addEventListener('click', handleUndoClick);
+		redo.addEventListener('click', handleRedoClick);
+
+		brush.addEventListener('click', handlebrush);
+		bucket.addEventListener('click', handlebucket);
+		pipette.addEventListener('click', handlepipette);
+		remover.addEventListener('click', handleremover);
+
+		clear.addEventListener('click', handleClear);
+		palet.addEventListener('click', handlePalet);
+		saveButton.addEventListener('click', handleSaveButton);
+
+	}
 });
 
 let paleteWidjetOpen = false;
-palet.addEventListener('click', () => {
+function handlePalet() {
 	if (paleteWidjetOpen){
 		console.log("paleteWidjetFalse")
 		paleteWidjet.style.display = "none";
@@ -447,7 +500,7 @@ palet.addEventListener('click', () => {
 		paleteWidjet.style.display = "flex";
 		paleteWidjetOpen = true;
 	}	
-});
+};
 
 redSlider.addEventListener('touchmove', (e) => {
 	console.log(redSlider.value);
@@ -568,9 +621,9 @@ function parseColorString(pixel) {
 	return {r: 0, g: 0, b: 0, a: 0};
 }
 
-saveButton.addEventListener('click', () => {
+function handleSaveButton() {
 	saveToPNG();
-});
+};
 
 displayConstructor(displayRes);
 

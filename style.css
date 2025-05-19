@@ -234,3 +234,25 @@ header {
 .pixel {
     touch-action: none;
 }
+
+footer {
+	display: none;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin: 0 auto;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;  
+	height: 35%;
+	width: 70%;
+	background: rgba(210, 210, 210, 0.4);
+	backdrop-filter: blur(2px);
+  	z-index: 1000;
+  	pointer-events: none;
+}
+
+/*footer.touchpad {
+  	pointer-events: auto;
+  	touch-action: manipulation;
+}*/
