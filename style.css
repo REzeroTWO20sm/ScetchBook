@@ -244,12 +244,15 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;  
-	height: 35%;
 	width: 70%;
 	background: rgba(210, 210, 210, 0.4);
 	backdrop-filter: blur(2px);
   	z-index: 1000;
   	pointer-events: none;
+
+  	height: 35%;
+  	z-index: 9999;
+	touch-action: manipulation;
 }
 
 /*footer.touchpad {
