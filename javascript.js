@@ -121,8 +121,25 @@ function handleTouchMove(e) {
 }
 
 function handleTouchEnd() {
-    isTouching = false;
+	isTouching = false;
+	if (eventSequence.length - 1 > eventSequencePos) {
+		for (let i = eventSequence.length - 1; i > eventSequencePos; i--){
+			eventSequence.splice(i,1);
+		}
+	}
+	for (let i = 0; i < displayRes[0]; i++){
+		for (let j = 0; j < displayRes[1]; j++){
+			currentDisplayColor.push([i,j,currentDisplay[i][j].style.backgroundColor]);
+		}
+	}
+	if (JSON.stringify(eventSequence[eventSequencePos]) != JSON.stringify(currentDisplayColor)) {
+		eventSequence.push(currentDisplayColor); eventSequencePos += 1;
+		console.log("currentDisplayColor was created", eventSequencePos);
+	}
+	currentDisplayColor = [];
 }
+
+
 
 function brushEventsPixel(pixel) {
 	pixel.addEventListener("mouseenter", () => {
@@ -188,6 +205,12 @@ function pipetteEventPixel(pixel) {
 			mainColor = pixel.style.backgroundColor;
 		}
 	});
+	pixel.addEventListener("touchstart", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "pipette") {
+			mainColor = pixel.style.backgroundColor;
+	        }
+	});
 }
 
 function bucketEventsPixel(pixel) {	
@@ -199,6 +222,17 @@ function bucketEventsPixel(pixel) {
 			console.log(currentDisplay[row][col],beforeColor);
 			bucketBrill(row,col,mainColor);
 		}
+	});
+	pixel.addEventListener("touchstart", (e) => {
+        	e.preventDefault();
+	        if (selectedTool === "bucket") {
+			const row = currentDisplay.findIndex(arr => arr.includes(pixel));
+			const col = currentDisplay[row].indexOf(pixel);
+			const beforeColor = pixel.style.backgroundColor;
+			console.log(currentDisplay[row][col],beforeColor);
+			bucketBrill(row,col,mainColor);
+
+	        }
 	});
 }
 
@@ -339,6 +373,7 @@ brush.addEventListener('click', () => {
 });
 
 bucket.addEventListener('click', () => {
+	console.log("bucket");
 	selectedTool = "bucket";
 });
 
@@ -350,17 +385,49 @@ remover.addEventListener('click', () => {
 	selectedTool = "remover";
 });
 
+let isButtonLocked = false;
+const BUTTON_DELAY = 60000;
 undo.addEventListener('click', () => {
 	if(eventSequencePos > 0) {
 		eventSequencePos -= 1;
 		painDisplay(eventSequencePos);
+		setTimeout(() => {
+			isButtonLocked = false;
+		}, BUTTON_DELAY);
 	}
+});
+
+undo.addEventListener("touchstart", (e) => {
+	console.log("hello")
+	if(eventSequencePos > 0) {
+		eventSequencePos -= 1;
+		painDisplay(eventSequencePos);
+		setTimeout(() => {
+			isButtonLocked = false;
+		}, BUTTON_DELAY);
+	}
+
 });
 
 redo.addEventListener('click', () => {
 	if (eventSequencePos < eventSequence.length-1) {
 		eventSequencePos += 1;
 		painDisplay(eventSequencePos);
+		setTimeout(() => {
+			isButtonLocked = false;
+		}, BUTTON_DELAY);
+
+	}
+});
+
+redo.addEventListener("touchstart", (e) => {
+	if (eventSequencePos < eventSequence.length-1) {
+		eventSequencePos += 1;
+		painDisplay(eventSequencePos);
+		setTimeout(() => {
+			isButtonLocked = false;
+		}, BUTTON_DELAY);
+
 	}
 });
 
