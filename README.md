@@ -21,7 +21,8 @@
 - **Логика**: Объединяет элементы для рисования и управления.
 - **Скриншот** (вид на компьютере):  
   ![Рабочая область на компьютере](https://github.com/REzeroTWO20sm/ScetchBook/blob/main/programPreview/computerMainView.png)
-- **Скриншот** (вид на мобильном устройстве):<img src="https://github.com/REzeroTWO20sm/ScetchBook/blob/main/programPreview/mobailMainView" height="500px" alt="Настройки">
+- **Скриншот** (вид на мобильном устройстве):
+- <img src="https://github.com/REzeroTWO20sm/ScetchBook/blob/main/programPreview/mobailMainView.jpg" height="500" alt="Мобильный">
 
 #### 3.1. Холст (Display)
 - **Описание**: Пиксельная сетка для рисования.
