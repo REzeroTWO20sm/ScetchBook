@@ -1,5 +1,5 @@
 # Retro Scetch Book
-You can test it !(here)[https://rezerotwo20sm.github.io/ScetchBook/]
+You can test it [here](https://rezerotwo20sm.github.io/ScetchBook/)
 Создано в рамках учебной программы [TheOdinProject](https://www.theodinproject.com/).
 
 **Retro Scetch Book** — это веб-приложение для создания пиксель-арта с ретро-стилистикой. Оно позволяет рисовать, изменять цвета, использовать различные инструменты и сохранять работы в формате PNG. Приложение адаптировано для работы на компьютерах и мобильных устройствах.
