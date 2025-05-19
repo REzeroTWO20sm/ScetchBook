@@ -253,6 +253,7 @@ footer {
   	height: 35%;
   	z-index: 9999;
 	touch-action: manipulation;
+	pointer-events: auto;
 }
 
 /*footer.touchpad {
