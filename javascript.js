@@ -24,6 +24,7 @@ const choseButton = document.querySelector(".choseButton");
 const chousenColor = document.querySelector(".chousenColor");
 const paleteWidjet = document.querySelector(".paleteWidjet");
 const saveButton = document.querySelector("#save");
+const mobileMode = document.querySelector("#MobileMode");
 display.addEventListener("mouseup", () => {mousehold = false});
 display.addEventListener("mouseleave", () => {mousehold = false});
 
@@ -385,50 +386,54 @@ remover.addEventListener('click', () => {
 	selectedTool = "remover";
 });
 
-let isButtonLocked = false;
-const BUTTON_DELAY = 60000;
-undo.addEventListener('click', () => {
-	if(eventSequencePos > 0) {
-		eventSequencePos -= 1;
-		painDisplay(eventSequencePos);
-		setTimeout(() => {
-			isButtonLocked = false;
-		}, BUTTON_DELAY);
-	}
-});
+function handleUndoClick() {
+  if(eventSequencePos > 0) {
+    eventSequencePos -= 1;
+    painDisplay(eventSequencePos);
+  }
+}
 
-undo.addEventListener("touchstart", (e) => {
-	console.log("hello")
-	if(eventSequencePos > 0) {
-		eventSequencePos -= 1;
-		painDisplay(eventSequencePos);
-		setTimeout(() => {
-			isButtonLocked = false;
-		}, BUTTON_DELAY);
-	}
+function handleUndoTouch(e) {
+  e.preventDefault();
+  console.log("hello");
+  if(eventSequencePos > 0) {
+    eventSequencePos -= 1;
+    painDisplay(eventSequencePos);
+  }
+}
 
-});
+function handleRedoClick() {
+  if (eventSequencePos < eventSequence.length-1) {
+    eventSequencePos += 1;
+    painDisplay(eventSequencePos);
+  }
+}
 
-redo.addEventListener('click', () => {
-	if (eventSequencePos < eventSequence.length-1) {
-		eventSequencePos += 1;
-		painDisplay(eventSequencePos);
-		setTimeout(() => {
-			isButtonLocked = false;
-		}, BUTTON_DELAY);
+function handleRedoTouch(e) {
+  e.preventDefault();
+  if (eventSequencePos < eventSequence.length-1) {
+    eventSequencePos += 1;
+    painDisplay(eventSequencePos);
+  }
+}
 
-	}
-});
+undo.addEventListener('click', handleUndoClick);
+redo.addEventListener('click', handleRedoClick);
 
-redo.addEventListener("touchstart", (e) => {
-	if (eventSequencePos < eventSequence.length-1) {
-		eventSequencePos += 1;
-		painDisplay(eventSequencePos);
-		setTimeout(() => {
-			isButtonLocked = false;
-		}, BUTTON_DELAY);
-
-	}
+mobileMode.addEventListener("change", (e) => {
+  undo.removeEventListener('click', handleUndoClick);
+  undo.removeEventListener('touchstart', handleUndoTouch);
+  
+  redo.removeEventListener('click', handleRedoClick);
+  redo.removeEventListener('touchstart', handleRedoTouch);
+  
+  if (mobileMode.checked) {
+    undo.addEventListener('touchstart', handleUndoTouch);
+    redo.addEventListener('touchstart', handleRedoTouch);
+  } else {
+    undo.addEventListener('click', handleUndoClick);
+    redo.addEventListener('click', handleRedoClick);
+  }
 });
 
 let paleteWidjetOpen = false;
@@ -444,9 +449,49 @@ palet.addEventListener('click', () => {
 	}	
 });
 
+redSlider.addEventListener('touchmove', (e) => {
+	console.log(redSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+greenSlider.addEventListener('touchmove', (e) => {
+	console.log(greenSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+blueSlider.addEventListener('touchmove', (e) => {
+	console.log(blueSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+opacitySlider.addEventListener('touchmove', (e) => {
+	console.log(opacitySlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
 choseButton.addEventListener('click', () => {
 	paleteWidjet.style.display = "none";
 	paleteWidjetOpen = false;
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+redSlider.addEventListener('touchend', (e) => {
+	console.log(redSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+greenSlider.addEventListener('touchend', (e) => {
+	console.log(greenSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+blueSlider.addEventListener('touchend', (e) => {
+	console.log(blueSlider.value);
+	chousenColor.dispatchEvent(sliderValueChanged);
+});
+
+opacitySlider.addEventListener('touchend', (e) => {
+	console.log(opacitySlider.value);
 	chousenColor.dispatchEvent(sliderValueChanged);
 });
 
