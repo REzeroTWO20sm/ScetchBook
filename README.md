@@ -34,7 +34,7 @@
 - **Описание**: Панель с ползунками RGB и прозрачности.
 - **Логика**: Позволяет выбрать цвет и прозрачность для рисования. Открывается/закрывается кнопкой "Palette".
 - **Скриншот**:  
-  ![Палитра открыта](https://github.com/REzeroTWO20sm/ScetchBook/blob/main/programPreview/paleteWidjetOpen.png)
+  ![Палитра открыта](https://github.com/REzeroTWO20sm/ScetchBook/blob/main/programPreview/paleteOpen.png)
 
 #### 3.3. Инструменты (Tools)
 - **Описание**: Набор инструментов: кисть, ластик, заливка, пипетка, отмена, повтор.
